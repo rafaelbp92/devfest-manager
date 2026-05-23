@@ -38,4 +38,8 @@ export class EventsService {
       return `${this.apiUrl}/${eventId}`;
     });
   }
+
+  createEvent(event: Omit<DevFestEvent, 'id'>): Observable<DevFestEvent> {
+    return this.http.post<DevFestEvent>(this.apiUrl, event);
+  }
 }
