@@ -1,6 +1,7 @@
 import { Component, inject, input } from '@angular/core';
 import { EventsService } from '../../core/events.service';
 import { DatePipe } from '@angular/common';
+import { CartService } from '../../core/cart.service';
 
 @Component({
   selector: 'app-event-details',
@@ -45,6 +46,7 @@ import { DatePipe } from '@angular/common';
             </div>
 
             <button
+              (click)="addToCart()"
               class="w-full bg-blue-600 text-white py-3 rounded-lg font-bold hover:bg-blue-700 shadow-lg transition"
             >
               Buy Tickets
@@ -57,6 +59,7 @@ import { DatePipe } from '@angular/common';
 })
 export class EventDetails {
   private readonly eventService = inject(EventsService);
+  private readonly cartService = inject(CartService);
 
   // 1. Route Param Input
   readonly id = input.required<string>();
@@ -64,4 +67,8 @@ export class EventDetails {
   // 2. Resource depends on the 'id' signal
   // When the route changes, 'id' updates, and 'eventResource' re-fetches automatically.
   readonly eventResource = this.eventService.getEventResource(this.id);
+
+  addToCart() {
+    this.cartService.addTicket(this.id());
+  }
 }

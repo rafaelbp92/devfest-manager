@@ -2,13 +2,14 @@ import { Injectable, inject, Signal } from '@angular/core';
 import { HttpClient, httpResource } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { DevFestEvent } from '../models/event.model';
+import { API_URL } from './tokens';
 
 @Injectable({
   providedIn: 'root',
 })
 export class EventsService {
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:3000/events';
+  private apiUrl = `${inject(API_URL)}/events`;
 
   // 1. Define the Resource Factory
   // We accept a Signal<string> so the resource can react to changes automatically.
